@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="EstoquePro - Sistema Distribuido de Controle de Estoque (Web Service REST + NoSQL)">
+<title>EstoquePro | Controle de Estoque Distribuído</title>
+
+
+<style type="text/css">@font-face {font-family:'Inter';font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.2.8/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.2.8/latin-ext/wght/normal.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.2.8/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.2.8/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.2.8/greek/wght/normal.woff2);unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.2.8/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.2.8/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.2.8/greek/wght/normal.woff2);unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.2.8/latin-ext/wght/normal.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.2.8/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.2.8/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.2.8/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.2.8/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.2.8/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.2.8/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.2.8/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.2.8/greek/wght/normal.woff2);unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.2.8/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.2.8/latin-ext/wght/normal.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.2.8/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.2.8/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.2.8/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.2.8/greek/wght/normal.woff2);unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.2.8/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.2.8/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.2.8/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.2.8/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.2.8/latin-ext/wght/normal.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.2.8/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.2.8/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.2.8/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.2.8/latin-ext/wght/normal.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.2.8/greek/wght/normal.woff2);unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.2.8/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:'Inter';font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.2.8/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:400;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/latin-ext/wght/normal.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:400;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:400;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:400;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/greek/wght/normal.woff2);unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:400;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:400;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:500;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:500;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:500;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/greek/wght/normal.woff2);unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:500;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:500;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:'JetBrains Mono';font-style:normal;font-weight:500;src:url(/cf-fonts/v/jetbrains-mono/5.2.8/latin-ext/wght/normal.woff2);unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}</style>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<header class="navbar" id="navbar">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark">EP</span>
+      <span class="brand-text">Estoque<b>Pro</b></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#dashboard">Painel</a>
+      <a href="#itens">Itens</a>
+      <a href="#movimentacoes">Movimentações</a>
+      <a href="#alertas">Alertas</a>
+      <a href="#api">API REST</a>
+      <a href="#arquitetura">Arquitetura</a>
+    </nav>
+    <button class="btn btn-outline" data-action="ping">Testar conexão</button>
+    <button class="burger" id="burger" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="nav-mobile" id="navMobile">
+    <a href="#dashboard">Painel</a>
+    <a href="#itens">Itens</a>
+    <a href="#movimentacoes">Movimentações</a>
+    <a href="#alertas">Alertas</a>
+    <a href="#api">API REST</a>
+    <a href="#arquitetura">Arquitetura</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="wrap hero-inner">
+      <span class="pill">Sistemas Distribuídos · AV1 · Web Service</span>
+      <h1>Controle de estoque em <span class="grad">tempo real</span>, de qualquer dispositivo.</h1>
+      <p class="lead">
+        Aplicação distribuída cliente-servidor desacoplada: o front-end é independente da persistência
+        e conversa com o banco NoSQL por requisições <b>REST/JSON</b>. Todo registro é identificado
+        por um <b>id</b> único — condição indispensável para que duas baixas simultâneas do mesmo item
+        não corrompam o saldo.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#itens">Gerenciar itens</a>
+        <a class="btn btn-ghost" href="#api">Ver endpoints REST</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><strong id="heroTotal">0</strong><span>itens cadastrados</span></div>
+        <div class="hstat"><strong id="heroSaldo">0</strong><span>unidades em estoque</span></div>
+        <div class="hstat"><strong id="heroAlertas" class="warn">0</strong><span>abaixo do mínimo</span></div>
+        <div class="hstat"><strong id="heroValor">R$ 0</strong><span>valor imobilizado</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONEXÃO ===== -->
+  <section class="wrap conn-bar">
+    <div class="conn">
+      <span class="dot" id="connDot"></span>
+      <span id="connText">Modo local — dados de demonstração</span>
+    </div>
+    <div class="conn-actions">
+      <label class="switch">
+        <input type="checkbox" id="modeToggle">
+        <span>Usar Web Service Technoworks</span>
+      </label>
+      <input type="text" id="baseUrl" class="input input-sm" value="https://technoworks.com.br/apidoc" spellcheck="false">
+      <button class="btn btn-sm btn-primary" data-action="ping">Conectar</button>
+    </div>
+  </section>
+
+  <!-- ===== DASHBOARD ===== -->
+  <section id="dashboard" class="wrap section">
+    <div class="sec-head">
+      <div>
+        <h2>Painel de saldos</h2>
+        <p>Cada cartão é um documento JSON persistido na coleção <code>api</code>, consultado por <code>GET</code>.</p>
+      </div>
+      <div class="sec-tools">
+        <input type="search" id="buscaPainel" class="input" placeholder="Filtrar por item, id ou depósito…">
+      </div>
+    </div>
+    <div class="cards" id="cardsPainel"></div>
+  </section>
+
+  <!-- ===== ITENS ===== -->
+  <section id="itens" class="wrap section">
+    <div class="sec-head">
+      <div>
+        <h2>Itens de estoque</h2>
+        <p>CRUD completo: <code>POST</code>, <code>GET</code>, <code>PUT</code> e <code>DELETE</code> sobre o identificador único.</p>
+      </div>
+      <div class="sec-tools">
+        <button class="btn btn-primary" data-action="novo-item">+ Novo item</button>
+      </div>
+    </div>
+
+    <form class="form-grid" id="form-item" autocomplete="off">
+      <input type="hidden" id="f-id" />
+      <div class="field">
+        <label for="f-codigo">Código (SKU)</label>
+        <input type="text" id="f-codigo" name="codigo" placeholder="EX: PAR-M8-40" required>
+        <small class="hint">Identificador humano do material.</small>
+      </div>
+      <div class="field span-2">
+        <label for="f-titulo">Título do item <span class="req">*</span></label>
+        <input type="text" id="f-titulo" name="titulo" placeholder="Ex: Parafuso sextavado M8 x 40mm" required>
+      </div>
+      <div class="field">
+        <label for="f-categoria">Categoria</label>
+        <select id="f-categoria" name="categoria" required></select>
+      </div>
+      <div class="field span-2">
+        <label for="f-descricao">Descrição</label>
+        <input type="text" id="f-descricao" name="descricao" placeholder="Unidade de medida, embalagem, observações…" required>
+      </div>
+      <div class="field">
+        <label for="f-deposito">Depósito</label>
+        <select id="f-deposito" name="deposito" required></select>
+      </div>
+      <div class="field">
+        <label for="f-preco">Custo unitário (R$) <span class="req">*</span></label>
+        <input type="number" id="f-preco" name="preco" step="0.01" min="0" placeholder="0,00" required>
+      </div>
+      <div class="field">
+        <label for="f-quantidade">Quantidade inicial</label>
+        <input type="number" id="f-quantidade" name="quantidade" min="0" placeholder="0">
+      </div>
+      <div class="field">
+        <label for="f-minimo">Saldo mínimo <span class="req">*</span></label>
+        <input type="number" id="f-minimo" name="estoque_minimo" min="0" placeholder="0" required>
+      </div>
+      <div class="field">
+        <label for="f-modo">Protocolo de envio</label>
+        <select id="f-modo" name="modo">
+          <option value="rest">REST (POST + JSON)</option>
+          <option value="easy">Easy (somente GET)</option>
+        </select>
+      </div>
+      <div class="form-actions span-3">
+        <button type="submit" class="btn btn-primary" id="btnSalvar">Salvar item</button>
+        <button type="button" class="btn btn-ghost" data-action="limpar-form">Limpar</button>
+        <span class="form-note">
+          O <b>id</b> é gerado automaticamente no padrão <code>est_&lt;timestamp&gt;</code> quando não informado.
+        </span>
+      </div>
+    </form>
+
+    <div class="table-tools">
+      <div class="chips" id="chipsCategoria"></div>
+      <div class="chips" id="chipsSituacao"></div>
+      <input type="search" id="buscaItens" class="input input-sm" placeholder="Buscar item…">
+      <select id="ordemItens" class="input input-sm">
+        <option value="titulo">Ordenar por título</option>
+        <option value="saldo-asc">Menor saldo</option>
+        <option value="saldo-desc">Maior saldo</option>
+        <option value="valor-desc">Maior valor imobilizado</option>
+      </select>
+    </div>
+
+    <div class="table-wrap">
+      <table id="tabela-itens">
+        <thead>
+          <tr>
+            <th>ID</th><th>Item</th><th>Categoria</th><th>Depósito</th>
+            <th class="t-right">Custo</th><th class="t-right">Saldo</th>
+            <th class="t-right">Mínimo</th><th>Situação</th><th class="t-right">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-corpo"></tbody>
+      </table>
+      <p class="empty" id="itensVazio" hidden>Nenhum item encontrado com os filtros atuais.</p>
+    </div>
+  </section>
+
+  <!-- ===== MOVIMENTAÇÕES ===== -->
+  <section id="movimentacoes" class="wrap section">
+    <div class="sec-head">
+      <div>
+        <h2>Movimentações</h2>
+        <p>Entradas e saídas gravadas na coleção livre (<code>rest</code>), com o <code>id</code> do item como referência.</p>
+      </div>
+      <div class="sec-tools">
+        <button class="btn btn-outline" data-action="toggle-mov">+ Registrar movimentação</button>
+      </div>
+    </div>
+
+    <form class="form-grid form-mov" id="form-mov" hidden autocomplete="off">
+      <div class="field">
+        <label>Item <span class="req">*</span></label>
+        <select id="m-item" required></select>
+      </div>
+      <div class="field">
+        <label>Tipo <span class="req">*</span></label>
+        <select id="m-tipo" required>
+          <option value="entrada">Entrada</option>
+          <option value="saida">Saída</option>
+          <option value="ajuste">Ajuste (define o saldo)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Quantidade <span class="req">*</span></label>
+        <input type="number" id="m-qtd" min="1" placeholder="0" required>
+      </div>
+      <div class="field span-2">
+        <label>Responsável / documento</label>
+        <input type="text" id="m-resp" placeholder="Ex: NF 10442 — Almoxarifado">
+      </div>
+      <div class="field">
+        <label>Protocolo</label>
+        <select id="m-modo">
+          <option value="rest">REST (POST + JSON)</option>
+          <option value="easy">Easy (somente GET)</option>
+        </select>
+      </div>
+      <div class="form-actions span-3">
+        <button type="submit" class="btn btn-primary">Registrar movimentação</button>
+        <button type="button" class="btn btn-ghost" data-action="toggle-mov">Cancelar</button>
+        <span class="form-note" id="movAviso">A saída é bloqueada se deixar o saldo negativo.</span>
+      </div>
+    </form>
+
+    <div class="table-wrap">
+      <table id="tabela-mov">
+        <thead>
+          <tr>
+            <th>Data/hora</th><th>ID do item</th><th>Item</th><th>Tipo</th>
+            <th class="t-right">Qtd.</th><th class="t-right">Saldo após</th><th>Responsável</th><th class="t-right">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="lista-mov"></tbody>
+      </table>
+      <p class="empty" id="movVazio" hidden>Nenhuma movimentação registrada ainda.</p>
+    </div>
+  </section>
+
+  <!-- ===== ALERTAS ===== -->
+  <section id="alertas" class="wrap section">
+    <div class="sec-head">
+      <div>
+        <h2>Alertas de reposição</h2>
+        <p>Itens cujo saldo ficou abaixo do mínimo configurado — a leitura é recalculada a cada requisição.</p>
+      </div>
+      <div class="sec-tools">
+        <button class="btn btn-outline" data-action="export-csv">Exportar CSV</button>
+      </div>
+    </div>
+    <div class="alerts" id="listaAlertas"></div>
+  </section>
+
+  <!-- ===== API ===== -->
+  <section id="api" class="wrap section">
+    <div class="sec-head">
+      <div>
+        <h2>API REST</h2>
+        <p>Os três modos documentados em <code>Technoworks.com.br/apidoc</code>, abstraídos em uma única camada de serviço.</p>
+      </div>
+    </div>
+
+    <div class="tabs" id="tabsApi">
+      <button class="tab active" data-tab="api">api (itens)</button>
+      <button class="tab" data-tab="rest">rest (coleção livre)</button>
+      <button class="tab" data-tab="easy">easy (somente GET)</button>
+    </div>
+
+    <div class="panes">
+      <div class="pane active" data-pane="api">
+        <ul class="endpoints">
+          <li><span class="m get">GET</span><code>/api</code><span class="desc">Lista todos os itens de estoque.</span></li>
+          <li><span class="m post">POST</span><code>/api</code><span class="desc">Cria um item. Corpo JSON com <b>id</b>, titulo, descricao, preco.</span></li>
+          <li><span class="m put">PUT</span><code>/api/{id}</code><span class="desc">Atualiza o item identificado pelo id.</span></li>
+          <li><span class="m del">DELETE</span><code>/api/{id}</code><span class="desc">Remove o documento do banco NoSQL.</span></li>
+        </ul>
+      </div>
+      <div class="pane" data-pane="rest">
+        <ul class="endpoints">
+          <li><span class="m get">GET</span><code>/rest/{colecao}</code><span class="desc">Lê uma coleção livre, ex.: <code>movimentacoes</code>.</span></li>
+          <li><span class="m post">POST</span><code>/rest/{colecao}</code><span class="desc">Insere documento com atributos dinâmicos (schema-less).</span></li>
+          <li><span class="m put">PUT</span><code>/rest/{colecao}/{id}</code><span class="desc">Atualiza o documento pelo id indexador.</span></li>
+          <li><span class="m del">DELETE</span><code>/rest/{colecao}/{id}</code><span class="desc">Remove o documento da coleção livre.</span></li>
+        </ul>
+      </div>
+      <div class="pane" data-pane="easy">
+        <ul class="endpoints">
+          <li><span class="m get">GET</span><code>/easy?action=insert&amp;id=…&amp;titulo=…</code><span class="desc">Insere via query string.</span></li>
+          <li><span class="m get">GET</span><code>/easy?action=list</code><span class="desc">Consulta todos os registros.</span></li>
+          <li><span class="m get">GET</span><code>/easy?action=update&amp;id=…</code><span class="desc">Atualiza via query string.</span></li>
+          <li><span class="m get">GET</span><code>/easy?action=delete&amp;id=…</code><span class="desc">Remove via query string.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-panel">
+      <div class="code-head">
+        <span class="code-title" id="codeTitle">POST /api — criação de item de estoque</span>
+        <button class="btn btn-sm btn-ghost" data-action="copiar-codigo">Copiar</button>
+      </div>
+      <pre class="code" id="codeBox"><code>const BASE_URL = "https://technoworks.com.br/apidoc";
+
+async function criarItemRest(item) {
+  if (!item.id) throw new Error("O campo ID é obrigatório para persistência.");
+  const r = await fetch(`${BASE_URL}/api`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify({
+      id: item.id,
+      titulo: item.titulo,
+      descricao: item.descricao,
+      preco: Number(item.preco),
+      quantidade: Number(item.quantidade),
+      estoque_minimo: Number(item.estoque_minimo),
+      deposito: item.deposito
+    })
+  });
+  if (!r.ok) throw new Error(`Erro HTTP: ${r.status}`);
+  return await r.json();
+}</code></pre>
+    </div>
+
+    <div class="log-panel">
+      <div class="log-head">
+        <span>Log de requisições</span>
+        <button class="btn btn-sm btn-ghost" data-action="limpar-log">Limpar</button>
+      </div>
+      <div class="log" id="logApi"></div>
+    </div>
+  </section>
+
+  <!-- ===== ARQUITETURA ===== -->
+  <section id="arquitetura" class="wrap section">
+    <div class="sec-head">
+      <div>
+        <h2>Arquitetura distribuída</h2>
+        <p>Camadas logicamente separadas: apresentação independente da persistência remota.</p>
+      </div>
+    </div>
+
+    <div class="layers">
+      <div class="layer">
+        <span class="tag">Requisito 1</span>
+        <h3>Paradigma Web Service</h3>
+        <p>Arquitetura orientada a recursos sobre HTTP/HTTPS. Nenhuma dependência de plataforma: Windows, Linux, macOS, Android ou iOS consomem o mesmo serviço.</p>
+      </div>
+      <div class="layer">
+        <span class="tag">Requisito 2</span>
+        <h3>Front-End web</h3>
+        <p>HTML5, CSS3 e JavaScript (ES6+) em página única, com consumo assíncrono via <b>Fetch API</b> e atualização dinâmica sem recarregar.</p>
+      </div>
+      <div class="layer">
+        <span class="tag">Requisito 3</span>
+        <h3>Banco NoSQL</h3>
+        <p>Orientado a documentos, sem esquema rígido — serialização direta de objetos JSON e escalabilidade horizontal.</p>
+      </div>
+      <div class="layer">
+        <span class="tag">Requisito 4</span>
+        <h3>REST + JSON</h3>
+        <p>Comunicação <i>stateless</i> com os métodos padrão GET, POST, PUT e DELETE e payloads leves em JSON.</p>
+      </div>
+      <div class="layer">
+        <span class="tag">Requisito 5</span>
+        <h3>Chave id obrigatória</h3>
+        <p>Chave primária distribuída: unicidade de registro, idempotência nas consultas e integridade nas alterações e exclusões.</p>
+      </div>
+      <div class="layer">
+        <span class="tag">Requisitos 6 e 7</span>
+        <h3>Estrutura modular</h3>
+        <p>Separação estrita entre visualização e serviço de comunicação, apta à migração para React ou TypeScript.</p>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="node"><b>Cliente</b><span>Navegador · qualquer SO</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>Front-End</b><span>HTML5 · CSS3 · JS / Fetch</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>Web Service</b><span>REST · JSON · HTTP</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>Banco NoSQL</b><span>Documentos por <b>id</b></span></div>
+    </div>
+
+    <div class="integrity">
+      <h3>Integridade sob concorrência</h3>
+      <p>
+        A operação de saída é validada <b>antes</b> da gravação, e o saldo é recalculado a partir do histórico
+        persistido — nunca da última leitura feita pelo cliente. Assim, duas saídas simultâneas do mesmo
+        <code>id</code> não geram saldo negativo nem leitura desatualizada, e toda movimentação permanece
+        rastreável até o documento de origem.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>
+      <div class="brand">
+        <span class="brand-mark">EP</span>
+        <span class="brand-text">Estoque<b>Pro</b></span>
+      </div>
+      <p class="footer-tag">Controle de estoque distribuído — Web Service REST com persistência NoSQL.</p>
+    </div>
+    <div class="footer-cols">
+      <div>
+        <h4>Projeto</h4>
+        <a href="#dashboard">Painel</a>
+        <a href="#itens">Itens</a>
+        <a href="#movimentacoes">Movimentações</a>
+        <a href="#alertas">Alertas</a>
+      </div>
+      <div>
+        <h4>Documentação</h4>
+        <a href="#api">Endpoints REST</a>
+        <a href="#arquitetura">Arquitetura</a>
+        <a href="README.md">README</a>
+      </div>
+      <div>
+        <h4>Integrante</h4>
+        <span>Diego Henrique Magalhães</span>
+        <span>RA 3024202130</span>
+        <span>Prof. Joao Vagner Pereira Da Silva</span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-base">
+    <span>© 2026 EstoquePro · Projeto Acadêmico — Ciência da Computação · Sistemas Distribuídos (AV1)</span>
+    <span id="footerMode">Modo: local (dados de demonstração)</span>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts"></div>
+<div class="modal" id="modal" hidden>
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
